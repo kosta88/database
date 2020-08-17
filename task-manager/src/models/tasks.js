@@ -1,17 +1,16 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-
-const Task = mongoose.model('Task' , {
-    description:{
+const Task = mongoose.model('Task', {
+    description: {
         type: String,
         require: true,
         trim: true
     },
-    completed:{
+    completed: {
         type: Boolean,
         default: false
-    } 
+    }
 })
 
 

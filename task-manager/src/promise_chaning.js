@@ -31,15 +31,13 @@ const { count } = require('./models/user')
 //     console.log(e)
 // })
 
-
-
-const deleteTaskAndCount = async (id) => {
-    const task = await Task.findByIdAndDelete(id)
-    const count = await Task.countDocuments( {completed : false})
-    return count;
-}
-deleteTaskAndCount('5f325c971efe942b3cac8e75').then((count) => {
-    console.log(count)
-}).catch( (e) => {
-    console.log(e)
-})
+// const deleteTaskAndCount = async (id) => {
+//     const task = await Task.findByIdAndDelete(id)
+//     const count = await Task.countDocuments( {completed : false})
+//     return count;
+// }
+// deleteTaskAndCount('5f325c971efe942b3cac8e75').then((count) => {
+//     console.log(count)
+// }).catch( (e) => {
+//     console.log(e)
+// })

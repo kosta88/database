@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
 // const validator = require('validator')           moved to user.js
-//mongoose connects with given database name!
 
-mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api' ,{
+
+//works with middleware as well
+
+mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
 })
-
 
 
 // const Task = mongoose.model('Task' , {
@@ -23,9 +24,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api' ,{
 // })
 
 
-
 //                      >>>>>>>>>>>>>  A promise returned by mongoose library
-
 // const task = new Task({
 //     description: '                   learn everything there is to know',
 //     completed: false
@@ -36,8 +35,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api' ,{
 // }).catch((error)=>{
 //     console.log(error)
 // })
-
-
 
 
 // const me = new User({
@@ -55,6 +52,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api' ,{
 
 
 
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>    MOVED TO MODELS
 // const User = mongoose.model('User' , {              //a database model
 //     name:{
 //         type: String,

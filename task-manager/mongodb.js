@@ -1,9 +1,6 @@
 //              >>>>>>>>>>>> without PROMISES!!!!!!!!!!!!
-
-
 // A PROMISE IS AN ASYNCRONOUS TOOL - SOLVE CALLBACKS PROBLEM
 //A PROMISE IS AM EHANCEMENT FOR CALLBACK
-
 
 // const {MongoClient, ObjectID} = require('mongodb')
 const mongodb = require('mongodb');      //mongo db npm!
@@ -20,7 +17,7 @@ const connectionURL = 'mongodb://127.0.0.1:27017';      //database URL
 const databaseName = 'task-manager';                    //wanted database name
 
 //callback called when connect completed
-MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {  
+MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
     if (error) {
         return console.log('cant connect to db')        //no need for else cause of the return
     }
@@ -77,14 +74,14 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
 
     db.collection('users').insertMany([
-            {
-                name: 'zarbal',
-                age: 33
-            }, {
-                name: 'lucky',
-                age: 0.1
-            }
-        ],(error, result) => {
+        {
+            name: 'zarbal',
+            age: 33
+        }, {
+            name: 'lucky',
+            age: 0.1
+        }
+    ], (error, result) => {
         if (error) {
             return console.log('cant connect to db')
         }
@@ -122,7 +119,7 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     })
 
 
-    db.collection('users').deleteMany({ age: 35}).then((result)=> {
+    db.collection('users').deleteMany({ age: 35 }).then((result) => {
         console.log(result.deletedCount)
     }).catch((error) => {
         console.log(error)

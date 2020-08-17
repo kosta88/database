@@ -1,6 +1,8 @@
 const express = require('express')
 const Task = require('../models/tasks')
+
 const router = new express.Router();
+
 
 router.post('/tasks', async (req, res) => {
     const task = new Task(req.body)
@@ -63,5 +65,6 @@ router.delete('/tasks/:id', async (req, res) => {
         res.status(500).send()
     }
 })
+
 
 module.exports = router

@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-//mongoose connects with given database name!
-// mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api' ,{
-//     useNewUrlParser: true,
-//     useCreateIndex: true
-// })
 
 const User = mongoose.model('User' , {              //a database model
     name:{
@@ -44,21 +39,5 @@ const User = mongoose.model('User' , {              //a database model
     } 
 })
 
+
 module.exports = User
-
-
-
-
-
-
-
-
-
-
-
-// {
-//     "name": "bob7",
-//     "email": "bobobbob@gmail.com",
-//     "password": "123465789",
-//     "age": 27
-// }
