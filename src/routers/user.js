@@ -1,8 +1,22 @@
 const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+const multer = require('multer')
 
 const router = new express.Router();    //important to create a router
+
+const avatar = multer({
+    dest: 'images',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if( (!file.originalname.endsWith('.jpg')) && (!file.originalname.endsWith('.pdf')) ) {
+            return cb(new Error('must be a *.jpg file'))
+        }
+        cb(undefined, true)
+    }
+})
 
 //  >>>>>SIGNUP
 router.post('/users', async (req, res) => {
@@ -79,5 +93,8 @@ router.delete('/users/me', auth , async (req, res) => {
     } catch (e) { res.status(500).send() }
 } )
 
+router.post('/users/me/avatar', avatar.single('upload') , (req, res) => {
+    res.send()
+})
 
 module.exports = router
