@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')          //has hash methods
 const jwt = require('jsonwebtoken')
-const task = require('./tasks')
+const Task = require('./tasks')
 
 //>>>>>>>>>>> MOST MONGOOSE STUFF
 const userScema = new mongoose.Schema({              //a database model
@@ -52,7 +52,7 @@ const userScema = new mongoose.Schema({              //a database model
 
 //virtual property >>>>>>>>>>>VIRTUAL FIELD
 userScema.virtual('tasks', {
-    ref: 'task',
+    ref: 'Task',
     localField: '_id',              //whith what the foreign field assocciated with
     foreignField: 'owner'           //name of fiels that creates realationship
 })
