@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 //works with middleware as well
 
-mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
+mongoose.connect('mongodb://127.0.0.1:27017/RSVP-api', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
