@@ -42,18 +42,24 @@ const userScema = new mongoose.Schema({              //a database model
             }
         }
     },
+    avatar: {
+        type: Buffer
+    },
     tokens: [{
         type: String,
         required: true
     }]
-}, {
+},
+
+//out of the schema
+{
     timestamps: true
 })
 
 //virtual property >>>>>>>>>>>VIRTUAL FIELD
 userScema.virtual('tasks', {
     ref: 'Task',
-    localField: '_id',              //whith what the foreign field assocciated with
+    localField: '_id',              //with what the foreign field assocciated with
     foreignField: 'owner'           //name of fiels that creates realationship
 })
 
@@ -72,6 +78,7 @@ userScema.methods.toJSON = function () {
     const userObject = user.toObject()
     delete userObject.password;
     delete userObject.tokens;
+    delete userObject.avatar;
     return userObject;
 
 }
@@ -93,13 +100,13 @@ userScema.pre('save', async function (next) {
 })
 
 //delete all tasks when remove user
-userScema.pre('remove', async function (next) {
-    const user = this;           //no arrow functio cause arrow functions dont know >>> this
-    await task.deleteMany( { owner: user._id } )
-    next();
-})
-
-
+userScema.methods.removeTasks = async function() {
+    const id = this._id;           //no arrow function cause arrow functions dont know >>> this
+    console.log(id)
+    await Task.deleteMany({owner: id }, (err, res) => {
+        console.log(res)
+    })
+}
 
 const User = mongoose.model('User', userScema)         //<<<<<<<<<< THE MODELS NAME DFINITION
 

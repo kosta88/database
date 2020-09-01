@@ -1,18 +1,21 @@
 const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
-const multer = require('multer')
+const multer = require('multer') //image filter
+const sharp = require('sharp');  // image crop and resize
+const {sendWelcomeMail} = require('../emails/account')
 
 const router = new express.Router();    //important to create a router
 
 const avatar = multer({
-    dest: 'images',
+    // dest: 'images',          //chooose local dir
     limits: {
         fileSize: 1000000
     },
     fileFilter(req, file, cb) {
-        if( (!file.originalname.endsWith('.jpg')) && (!file.originalname.endsWith('.pdf')) ) {
-            return cb(new Error('must be a *.jpg file'))
+        // if( (!file.originalname.endsWith('.jpg')) && (!file.originalname.endsWith('.pdf')) )
+        if( !file.originalname.match(    /\.(jpg|png|jpeg)$/    ) ) {           //>>>>>>>>>>>>>> MATCH ALLOWS REGULAR EXPRESSIONS!!!!!!
+            return cb(new Error('must be a >.jpg or >.png file'))
         }
         cb(undefined, true)
     }
@@ -23,6 +26,7 @@ router.post('/users', async (req, res) => {
     const user = new User(req.body)
     try {
         await user.save()
+        sendWelcomeMail(user.email, user.name)          //can await cAUSE A PROMISE IS RETURNED
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token })
     } catch (e) { res.status(400).send(e) }
@@ -84,17 +88,51 @@ router.patch('/users/me', auth, async (req, res) => {
 })
 
 //>>>>>>>>>>>>>>>> DELETE A USER
-router.delete('/users/me', auth , async (req, res) => {
+router.delete('/users/me', auth, async (req, res) => {
     try {
-        // const user = await User.findByIdAndDelete(req.user._id)
-        // if (!user) { return res.status(404).send() }
-        await req.user.remove()
+        await req.user.removeTasks();
+        await User.deleteOne({_id: req.user._id}) 
         res.send(req.user)
     } catch (e) { res.status(500).send() }
 } )
 
-router.post('/users/me/avatar', avatar.single('upload') , (req, res) => {
+//>>>>>>>>>>>>>>>> DELETE A photo
+router.delete('/users/me/avatar', auth , async (req, res) => {
+    try {
+        req.user.avatar = undefined
+        await req.user.save()
+        res.send()
+    } catch (e) { res.status(500).send() }
+} )
+
+
+
+
+router.post('/users/me/avatar', auth , avatar.single('upload') , async (req, res) => {
+    // req.user.avatar = req.file.buffer
+    const bufferModifiedIMG = await sharp(req.file.buffer).resize({width: 250, height: 250}).png().toBuffer()
+    req.user.avatar = bufferModifiedIMG
+    await req.user.save()
+
     res.send()
+}, (error, req, res, next) => {         //<<<<<   COMES AT THE END AND HAVE A CERTAIN CALL ARRANGMENT
+    res.status(400).send({ error: error.message })
+})
+
+
+
+router.get('/users/:id/avatar', async ( req, res) => {
+    try{
+        const user = await User.findById(req.params.id)
+
+        if( !user || !user.avatar) {
+            throw new Error()
+        }
+        res.set( 'Content-Type' , 'image/png')      //express uses that to parse the res
+        res.send(user.avatar)
+    }catch (e) {
+
+    }
 })
 
 module.exports = router
