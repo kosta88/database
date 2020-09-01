@@ -66,7 +66,7 @@ userScema.virtual('tasks', {
 //METHODS ON STATICS BELONG TO THE MODEL, METHODS BELONGS TO INSTANCE
 userScema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'thisismyCourse')
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
     user.tokens = user.tokens.concat([token])
     await user.save()
     return token;

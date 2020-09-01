@@ -7,7 +7,7 @@ const taskRouter = require('./routers/task')
 const bcrypt = require('bcryptjs')                //has hash methods
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT 
 //middleware function regestration > cause its before 
 // app.use( (req, res, next) => {
 //     // console.log(req.method, req.path)

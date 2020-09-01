@@ -1,9 +1,7 @@
 const sgMail = require('@sendgrid/mail')
 const { send } = require('@sendgrid/mail')
 
-const sendgridAPIkey = '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'
-
-sgMail.setApiKey(sendgridAPIkey)
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 // sgMail.send({
 //     to: 'kostiask@gmail.com',
@@ -22,6 +20,17 @@ const sendWelcomeMail = (email, name) => {
 }
 
 
+const sendCancelMail = (email, name) => {
+    sgMail.send({
+        to: email,
+        from: 'kostiask@gmail.com',
+        subject: 'Cancel Account RSVP app',
+        text: `Hi ${name} , we are sorry to hear you are leaving us....`         //template strings only with back >>>>   ``
+    })
+}
+
+
 module.exports = {
-    sendWelcomeMail
+    sendWelcomeMail,
+    sendCancelMail
 }

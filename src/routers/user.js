@@ -3,7 +3,7 @@ const User = require('../models/user')
 const auth = require('../middleware/auth')
 const multer = require('multer') //image filter
 const sharp = require('sharp');  // image crop and resize
-const {sendWelcomeMail} = require('../emails/account')
+const {sendWelcomeMail, sendCancelMail} = require('../emails/account')
 
 const router = new express.Router();    //important to create a router
 
@@ -92,6 +92,7 @@ router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.removeTasks();
         await User.deleteOne({_id: req.user._id}) 
+        sendCancelMail(req.user.email, req.user.name)
         res.send(req.user)
     } catch (e) { res.status(500).send() }
 } )

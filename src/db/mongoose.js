@@ -1,15 +1,15 @@
 const mongoose = require('mongoose')
 // const validator = require('validator')           moved to user.js
 
+// MONGODB_URL = mongodb://127.0.0.1:27017/RSVP-api     //old url , local
+
 
 //works with middleware as well
-
-mongoose.connect('mongodb://127.0.0.1:27017/RSVP-api', {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
 })
-
 
 // const Task = mongoose.model('Task' , {
 //     description:{
@@ -22,6 +22,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/RSVP-api', {
 //         default: false
 //     } 
 // })
+
 
 
 //                      >>>>>>>>>>>>>  A promise returned by mongoose library
@@ -37,6 +38,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/RSVP-api', {
 // })
 
 
+
 // const me = new User({
 //     name: 'helen',
 //     age: 65,
@@ -44,12 +46,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/RSVP-api', {
 //     password: 'r e v  er'
 // })
 
+
+
 // me.save().then(() => {
 //     console.log(me)
 // }).catch((error) =>{
 //     console.log(error)
 // })
-
 
 
 
