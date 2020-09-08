@@ -1,3 +1,19 @@
+const app = require('./app')
+
+const port = process.env.PORT 
+
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
+})
+
+
+
+
+
+
+/*>>>>>>>>>>>>>BEFORE CODE
+
+
 // const User = require('./models/user')        //MOVED TO ROUTERS
 // const Task = require('./models/task')
 const express = require('express')
@@ -41,3 +57,6 @@ app.listen(port, () => {
 
 
 // myFunction()
+
+
+*/
