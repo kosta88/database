@@ -51,10 +51,10 @@ const userScema = new mongoose.Schema({              //a database model
     }]
 },
 
-//out of the schema
-{
-    timestamps: true
-})
+    //out of the schema
+    {
+        timestamps: true
+    })
 
 //virtual property >>>>>>>>>>>VIRTUAL FIELD
 userScema.virtual('tasks', {
@@ -80,7 +80,6 @@ userScema.methods.toJSON = function () {
     delete userObject.tokens;
     delete userObject.avatar;
     return userObject;
-
 }
 
 //>>>>>>>>>>>>>....     mongoose user schema adding to its functions
@@ -100,10 +99,10 @@ userScema.pre('save', async function (next) {
 })
 
 //delete all tasks when remove user
-userScema.methods.removeTasks = async function() {
+userScema.methods.removeTasks = async function () {
     const id = this._id;           //no arrow function cause arrow functions dont know >>> this
     console.log(id)
-    await Task.deleteMany({owner: id }, (err, res) => {
+    await Task.deleteMany({ owner: id }, (err, res) => {
         console.log(res)
     })
 }
