@@ -6,6 +6,10 @@ const Task = require('./tasks')
 
 //>>>>>>>>>>> MOST MONGOOSE STUFF
 const userScema = new mongoose.Schema({              //a database model
+    hasclub: {
+        type: String,
+        default: "false",
+    },
     name: {
         type: String,
         required: true,
