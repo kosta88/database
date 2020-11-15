@@ -87,6 +87,17 @@ router.patch('/users/me', auth, async (req, res) => {
     } catch (e) { res.status(400).send(e) }
 })
 
+router.patch('/users/gotTeam', auth, async (req, res) => {  
+    try {
+        req.user[hasclub] = "true";
+        req.user[clubName] = req.body[name];
+        await req.user.save()
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+        // if (!user) { return res.status(404).send() }
+        res.send(req.user)
+    } catch (e) { res.status(400).send(e) }
+})
+
 //>>>>>>>>>>>>>>>> DELETE A USER
 router.delete('/users/me', auth, async (req, res) => {
     try {

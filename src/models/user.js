@@ -10,6 +10,9 @@ const userScema = new mongoose.Schema({              //a database model
         type: String,
         default: "false",
     },
+    clubName: {
+        type: String,
+    },
     name: {
         type: String,
         required: true,
