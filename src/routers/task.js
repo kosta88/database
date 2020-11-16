@@ -27,7 +27,6 @@ router.get('/tasks', auth, async (req, res) => {
     match.completed = req.query.completed === 'true'
     const sortTypee = toString(req.query).includes('decs') ? 1 : -1
     try {
-        // console.log(req.user)
         // const userTasks = await Task.find({ owner: req.user._id}).populate('tasks')
         const userTasks = await req.user.populate({
             path: 'tasks',
@@ -55,7 +54,6 @@ router.patch('/tasks/:id', auth, async (req, res) => {
     try {
         const task = await Task.findOne({ _id: req.params.id, owner: req.user._id })
         // const task = await Task.findById(req.params.id)
-
         if (!task) { return res.status(404).send() }
         updates.forEach((update) => { task[update] = req.body[update] })
         await task.save()
@@ -77,6 +75,5 @@ router.delete('/tasks/:id', auth, async (req, res) => {
         res.status(500).send()
     }
 })
-
 
 module.exports = router

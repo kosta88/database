@@ -108,9 +108,7 @@ userScema.pre('save', async function (next) {
 //delete all tasks when remove user
 userScema.methods.removeTasks = async function () {
     const id = this._id;           //no arrow function cause arrow functions dont know >>> this
-    console.log(id)
     await Task.deleteMany({ owner: id }, (err, res) => {
-        console.log(res)
     })
 }
 
