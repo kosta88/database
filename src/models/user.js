@@ -33,7 +33,7 @@ const userScema = new mongoose.Schema({              //a database model
         type: String,
         required: true,
         trim: true,
-        minlength: 8,
+        minlength: 4,
         validate(value) {
             if (value.includes('password')) {
                 throw new Error('password cannot contain password')
