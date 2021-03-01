@@ -2,9 +2,7 @@ const express = require('express')
 const Task = require('../models/tasks')
 const auth = require('../middleware/auth')
 
-
 const router = new express.Router();
-
 
 router.post('/tasks', auth, async (req, res) => {
     // const task = new Task(req.body)
@@ -19,7 +17,6 @@ router.post('/tasks', auth, async (req, res) => {
         res.status(400).send(e)
     }
 })
-
 
 // GET /tasks?completed=false
 router.get('/tasks', auth, async (req, res) => {

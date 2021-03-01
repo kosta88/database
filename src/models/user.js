@@ -6,13 +6,6 @@ const Task = require('./tasks')
 
 //>>>>>>>>>>> MOST MONGOOSE STUFF
 const userScema = new mongoose.Schema({              //a database model
-    hasclub: {
-        type: String,
-        default: "false",
-    },
-    clubName: {
-        type: String,
-    },
     name: {
         type: String,
         required: true,
@@ -39,6 +32,10 @@ const userScema = new mongoose.Schema({              //a database model
                 throw new Error('password cannot contain password')
             }
         }
+    },
+    bestScore: {
+        type: Number,
+        default: 0,
     },
     age: {
         type: Number,

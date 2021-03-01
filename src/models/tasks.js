@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
+// const validator = require('validator')
 const User = require('./user')
 
 const taskSchema = new mongoose.Schema({
@@ -20,8 +20,6 @@ const taskSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
-
-
 
 const Task = mongoose.model('Task', taskSchema)     //<<<<<<<<<< THE MODELS NAME DFINITION
 
