@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const questionSchema = new mongoose.Schema({
+    Approved: {
+        type: Boolean,
+        default: true,
+    },
     by: {
         type: String,
     },

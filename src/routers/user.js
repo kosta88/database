@@ -71,6 +71,15 @@ router.get('/users/me', auth, async (req, res) => {
     } catch (e) { res.status(500).send() }
 })
 
+//  >>>>>Top Scores
+router.get('/users/topScores', async (req, res) => {
+    try {
+        const allUsers = await User.find().sort({bestScore: 1});
+        res.send(allUsers)
+    } catch (e) { res.status(500).send() }
+})
+
+
 //  >>>>>UPDATE USER
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
@@ -87,10 +96,20 @@ router.patch('/users/me', auth, async (req, res) => {
     } catch (e) { res.status(400).send(e) }
 })
 
-router.patch('/users/gotTeam', auth, async (req, res) => {  
+router.patch('/users/newBestScore', auth, async (req, res) => {  
     try {
-        req.user.hasclub = "true";
-        req.user.clubName = req.body.name;
+        req.user.bestScore = req.body.score;
+        await req.user.save()
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+        // if (!user) { return res.status(404).send() }
+        res.status(200).send(req.user)
+    } catch (e) { res.status(400).send(e) }
+})
+
+router.patch('/users/levelUp', auth, async (req, res) => {  
+    try {
+        let newLevel = req.body.level+1;
+        req.user.userLevel = newLevel;
         await req.user.save()
         // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
         // if (!user) { return res.status(404).send() }

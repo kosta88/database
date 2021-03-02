@@ -37,6 +37,10 @@ const userScema = new mongoose.Schema({              //a database model
         type: Number,
         default: 0,
     },
+    userLevel: {
+        type: Number,
+        default: 0,
+    },
     age: {
         type: Number,
         default: 0,
