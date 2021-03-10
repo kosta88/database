@@ -74,7 +74,7 @@ router.get('/users/me', auth, async (req, res) => {
 //  >>>>>Top Scores
 router.get('/users/topScores', async (req, res) => {
     try {
-        const allUsers = await User.find().sort({bestScore: 1});
+        const allUsers = await User.find().sort({bestScore: -1});
         res.send(allUsers)
     } catch (e) { res.status(500).send() }
 })
